@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue2.js"></script>
+</head>
+
+<body>
+
+    <div class="app">
+        <!-- 可以连续调用多个过滤器 -->
+        <p>{{message | capitalize | maxLength}}</p>
+    </div>
+
+    <script>
+        //定义全局过滤器
+        //首字母大写
+        Vue.filter('capitalize', (str) => {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        })
+        //字符串长度小于10
+        Vue.filter('maxLength', (str) => {
+            if (str.length <= 10) return str;
+            return str.substr(0, 10) + '......';
+        })
+    </script>
+
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                message: 'getdatasuccessyooo'
+            }
+        })
+    </script>
+</body>
+
+</html>

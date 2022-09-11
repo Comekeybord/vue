@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue2.js"></script>
+</head>
+
+<body>
+
+    <!-- v-model 双向数据绑定指令 -->
+    <!-- 注意 v-modle 指令只能配合表单元素使用 -->
+    <div class="app">
+        <p>name:{{name}}</p>
+        <!-- 将输入框的值与 name 双向绑定 -->
+        <input type="text" v-model="name" />
+        <hr>
+        <!-- 将下拉选择框的值与 province 双向绑定 -->
+        <p>选中的省份是:{{province}}</p>
+        <select v-model="province">
+            <option value="">请选择</option>
+            <option value="1">上海</option>
+            <option value="2">北京</option>
+            <option value="3">深圳</option>
+            <option value="4">广州</option>
+        </select>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                name: 'zs',
+                province: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

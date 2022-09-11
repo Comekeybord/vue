@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 注意 index.js中的代码存在兼容性问题 -->
+    <!-- <script src="./index.js"></script> -->
+
+    <!-- webpack serve实时打包生成的文件默认在项目根目录 实际是在内存中虚拟不可见 -->
+    <!-- 所以dist目录被删除也不影响实时打包的效果 -->
+
+    <!-- <script src="../bundle.js"></script> -->
+    <!-- 1.通过htmlplugin复制的文件也被存放在内存中 目录树中无法看到 -->
+    <!-- 2.htmlplugin把引入打包好js文件的语句注入到了页面最后，所以不用手动引入文件 -->
+</head>
+
+<body>
+    <ul>
+        <li>这是第1个li</li>
+        <li>这是第2个li</li>
+        <li>这是第3个li</li>
+        <li>这是第4个li</li>
+        <li>这是第5个li</li>
+        <li>这是第6个li</li>
+        <li>这是第7个li</li>
+        <li>这是第8个li</li>
+        <li>这是第9个li</li>
+    </ul>
+    <div class="box"></div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="app">
+        <!-- v-bind 动态绑定渲染属性内容 -->
+        <input type="text" v-bind:placeholder="inputValue">
+        <!-- hr标签是分割线 -->
+        <hr>
+        <!-- 动态渲染图片路径 -->
+        <!-- v-bind可以简写为 : -->
+        <img :src="imgSrc" alt="">
+    </div>
+    <script src="./lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                //文本框内容的占位符
+                inputValue: '请输入内容',
+                //图片地址
+                imgSrc: './images/学习目标.jpg'
+            }
+        });
+    </script>
+</body>
+
+</html>

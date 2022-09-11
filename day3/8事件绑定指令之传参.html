@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="app">
+        <h3>count的值为{{count}}</h3>
+        <!-- 通过 v-on 添加事件函数 -->
+        <!-- 通过固定写法$event传递原生事件对象 -->
+        <button @click="addCount(2,$event)">+2</button>
+    </div>
+
+    <script src="./lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                count: 0
+            },
+            // 添加事件处理函数
+            methods: {
+                //点击按钮让count自增1
+                addCount(step, e) {//如果事件对象被覆盖，那就用$event手动传递
+                    //this指向vm实例对象
+                    this.count += step;
+                    var bgColor = e.target.style.backgroundColor;
+                    e.target.style.backgroundColor = bgColor == 'red' ? '' : 'red';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

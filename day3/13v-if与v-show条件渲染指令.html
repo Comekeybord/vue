@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 2.定义要被控制的区域 -->
+    <div class="app">
+        <button @click="flag=!flag">change flag</button>
+        <hr>
+        <!-- v-if 与 v-show效果一样 true则显示元素 false则隐藏元素 -->
+        <!-- v-if是通过添加移除DOM元素实现  v-show是通过更改style.display来实现 -->
+        <!-- v-if有更高的切换开销 v-show有更高的初始渲染开销因为一开始不管隐藏没有DOM节点都会渲染 -->
+        <!-- 如果经常切换就用show 如果不经常切换就用if -->
+        <p v-if="flag">v-if 指令</p>
+        <p v-show="flag">v-show 指令</p>
+    </div>
+    <!-- 1.导入vue脚本文件 -->
+    <script src="./lib/vue2.js"></script>
+    <!-- 3.创建vue实例对象 -->
+    <script>
+        const vm = new Vue({
+            //el属性指定要控制的区域
+            el: '.app',
+            //data属性指定要传递的数据
+            data: {
+                flag: false
+            }
+        });
+    </script>
+</body>
+
+</html>

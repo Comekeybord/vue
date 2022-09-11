@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 只能配合键盘使用 -->
+    <div class="app">
+        <!-- 按键修饰符通过 .按键 的形式判断按下的键 -->
+        <input type="text" @keyup.enter="submit" @keyup.esc="clearValue">
+    </div>
+    <script src="./lib/vue2.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            methods: {
+                submit(e) {
+                    console.log(e.target.value);
+                },
+                clearValue(e) {
+                    e.target.value = '';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

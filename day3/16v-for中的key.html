@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue2.js"></script>
+</head>
+
+<body>
+
+
+    <div class="app">
+        <input type="text" v-model="nextName">
+        <button @click="addUser">
+            添加用户信息
+        </button>
+        <hr>
+        <ul>
+            <li v-for="(userInfo,index) in userList" :key="userInfo.id">
+                <input type="checkbox">
+                <input type="text" :value="userInfo.name">
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                userList: [
+                    {
+                        name: 'zs',
+                        id: 1
+                    },
+                    {
+                        name: 'ls',
+                        id: 2
+                    }
+                ],
+                nextName: '',
+                nextId: 3
+            },
+            //点击按钮添加用户
+            methods: {
+                addUser() {
+                    //从前面插入
+                    this.userList.unshift({
+                        name: this.nextName,
+                        id: this.nextId,
+                    })
+                    this.nextId++;
+                }
+            }
+        })
+
+        // 因为vue为了提高渲染效率 所以会复用DOM 会造成复选框移位的情况 用自定义属性key解决
+        // key要放在li上(v-for循环的元素上)
+
+        // 注意事项
+        // 1.key的值只能是数字或者字符串
+        // 2.key的值要是一个唯一的值
+        // 3.建议用id作为key的值 因为id具有唯一性
+        // 4.不能使用index作为key的值 因为index的值会随着数组变化 没有意义
+        // 5.建议使用v-for的时候一定要使用key值 既能提高性能又能避免混乱
+    </script>
+</body>
+
+</html>

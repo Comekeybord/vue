@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <!-- 导入 bootstrap 的样式表 -->
+  <!-- https://v4.bootcss.com/docs/components/forms/#switches -->
+  <link rel="stylesheet" href="./lib/bootstrap.css" />
+  <!-- 引入vue -->
+  <script src="./lib/vue2.js"></script>
+  <style>
+    :root {
+      font-size: 13px;
+    }
+
+    body {
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- 卡片区域 -->
+    <div class="card">
+      <h5 class="card-header">添加品牌</h5>
+      <div class="card-body">
+        <!-- 添加品牌的表单 -->
+        <!-- @submit.prevent阻止表单的默认提交事件 -->
+        <form class="form-inline" @submit.prevent>
+          <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">品牌名称</div>
+            </div>
+            <!-- 文本输入框 -->
+            <!-- v-model="brandName"把输入框与brandName双向绑定 -->
+            <!-- esc快速清空文本框 -->
+            <input type="text" class="form-control" v-model.trim="brandName" @keyup.esc="clearText" />
+          </div>
+
+          <!-- 提交表单的按钮 -->
+          <button type="submit" class="btn btn-primary mb-2" @click="addNewBrand(brandName)">添加品牌</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 品牌列表 -->
+    <table class="table table-bordered table-striped mt-2">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>品牌名称</th>
+          <th>状态</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <!-- 表格的主体区域 -->
+      <tbody>
+        <!-- TODO：循环渲染表格的每一行数据 -->
+        <tr v-for="(item,index) in brandList" :key="item.id">
+          <td>{{index+1}}</td>
+          <td>{{item.brandName}}</td>
+          <td>
+            <div class="custom-control custom-switch">
+              <!-- for控制id相同的input框 -->
+              <!-- 双向绑定checkbox 控制开关 -->
+              <input type="checkbox" class="custom-control-input" :id="item.id" v-model="item.state">
+              <!-- 通过v-if v-else 按需渲染 -->
+              <label class="custom-control-label" :for="item.id" v-if="item.state">已启用</label>
+              <label class="custom-control-label" :for="item.id" v-else="item.state">已禁用</label>
+            </div>
+          </td>
+          <!-- 调用时间过滤器 -->
+          <td>{{item.addTime | dateFormat}}</td>
+          <td>
+            <!-- 阻止默认事件 删除品牌 -->
+            <a href="#" @click.prevent="removeState(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <script>
+
+    //定义全局过滤器
+    Vue.filter('dateFormat', (dateStr) => {
+      const dt = new Date(dateStr);
+      const y = dt.getFullYear();
+      const m = padZero(dt.getMonth());
+      const d = padZero(dt.getDate());
+
+      const hh = padZero(dt.getHours());
+      const mm = padZero(dt.getMinutes());
+      const ss = padZero(dt.getSeconds());
+      return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+    })
+
+    //定义补零函数
+    function padZero(n) {
+      return n > 9 ? n : '0' + n;
+    }
+
+    // 编写业务逻辑
+    const vm = new Vue({
+      el: '.app',
+      data: {
+        nextID: 4,
+        brandName: '',
+        brandList: [
+          {
+            id: 1,
+            brandName: '宝马',
+            state: true,
+            addTime: new Date()
+          },
+          {
+            id: 2,
+            brandName: '奔驰',
+            state: true,
+            addTime: new Date()
+          },
+          {
+            id: 3,
+            brandName: '兰博基尼',
+            state: true,
+            addTime: new Date()
+          }
+        ]
+      },
+      methods: {
+        //添加品牌
+        addNewBrand(brandname) {
+          if (!brandname) return alert('请输入品牌名称');
+          this.brandList.push({
+            id: this.nextID,
+            brandName: brandname,
+            state: true,
+            addTime: new Date()
+          })
+          this.nextID++;
+          brandname = '';
+        },
+        //清空文本框
+        clearText(e) {
+          //清空触发事件的DOM的值
+          //直接清空value无法触发双向绑定，无法清空
+          // e.target.value = '';
+          this.brandName = '';
+        },
+        //删除品牌
+        removeState(id) {
+          //借助数组过滤
+          this.brandList = this.brandList.filter(x => x.id !== id);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

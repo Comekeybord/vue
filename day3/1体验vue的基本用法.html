@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 2.定义要被控制的区域 -->
+    <div class="app">{{age}}</div>
+
+    <!-- 不在被控制区域则不会被渲染 -->
+    <div>{{username}}</div>
+    <!-- 1.导入vue脚本文件 -->
+    <script src="./lib/vue2.js"></script>
+    <!-- 3.创建vue实例对象 -->
+    <script>
+        const vm = new Vue({
+            //el属性指定要控制的区域
+            el: '.app',
+            //data属性指定要传递的数据
+            data: {
+                username: 'zs',
+                age: 20
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue2.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <p :title="info | capitalize">name:{{name | capitalize}}</p>
+    </div>
+
+    <div class="app2">
+        <p>name:{{abc | capitalize}}</p>
+    </div>
+
+    <script>
+        // 定义全局过滤器
+        Vue.filter('capitalize', function (str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        })
+    </script>
+
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                name: 'zs',
+                info: 'userInfo'
+            },
+            // 定义过滤器
+            //在filters下定义的过滤器都叫做私有过滤器 只有在el指定的区域才能使用
+            filters: {//全局过滤器与私有过滤器名字冲突时 以私有过滤器为准
+                capitalize(str) {
+                    return str.charAt(0).toUpperCase() + str.slice(1) + '~~~';
+                }
+            }
+        })
+    </script>
+
+    <script>
+        const vm2 = new Vue({
+            el: '.app2',
+            data: {
+                abc: 'abc'
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>

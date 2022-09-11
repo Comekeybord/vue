@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue2.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <ul>
+            <!-- 通过v-for 循环出列表 -->
+            <!-- 括号第一个参数为被循环到的数组元素 第二个参数为它在数组中的下标 -->
+            <li v-for="(info,i) in userInfo">第{{i+1}}条记录,用户信息{{info}}</li>
+        </ul>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '.app',
+            data: {
+                userInfo: [
+                    {
+                        name: 'zs',
+                        sex: '男'
+                    },
+                    {
+                        name: 'ls',
+                        sex: '女'
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>
