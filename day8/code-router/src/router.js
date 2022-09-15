@@ -8,6 +8,7 @@ import Rights from './components/menus/MyRights.vue'
 import Goods from './components/menus/MyGoods.vue'
 import Orders from './components/menus/MyOrders.vue'
 import Settings from './components/menus/MySettings.vue'
+import UserDetail from './components/user/MyUserDetail.vue'
 
 // 创建实例对象
 const router = createRouter({
@@ -51,6 +52,13 @@ const router = createRouter({
                     path: 'settings',
                     component: Settings
                 },
+                {
+                    path: 'users/:id',
+                    name: 'userid',
+                    component: UserDetail,
+                    // 开启传参 给组件传参
+                    props: true
+                }
             ]
         }
     ]

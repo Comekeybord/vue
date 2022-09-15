@@ -1,0 +1,90 @@
+<template>
+  <div class="count">
+    <h1>当前求和为---{{ sum }}</h1>
+    <h3>当前求和放大十倍为---{{ bigSum }}</h3>
+    <h3>我在{{ school }}学{{ object }}</h3>
+    <select v-model.number="num">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+    <button @click="incrementOdd">当前为奇数再加</button>
+    <button @click="incrementWait">等一等再加</button>
+  </div>
+</template>
+
+<script>
+// 引入state映射方法mapState
+import { mapState, mapGetters } from "vuex";
+export default {
+  name: "Count",
+  data() {
+    return {
+      num: 1, //用户选择的数字
+    };
+  },
+  methods: {
+    increment() {
+      // 调用this.$store.dispatch把需求提交到actions
+      // this.$store.dispatch("add", this.num);
+
+      // 当不需要业务逻辑时 直接提交到mutations中处理数据
+      this.$store.commit("ADD", this.num);
+    },
+    decrement() {
+      // this.$store.dispatch("decrement", this.num);
+      this.$store.commit("DECREMENT", this.num);
+    },
+    incrementOdd() {
+      this.$store.dispatch("addOdd", this.num);
+    },
+    incrementWait() {
+      this.$store.dispatch("addWait", this.num);
+    },
+  },
+  // 用computed属性简化获取vuex的方式
+  computed: {
+    // 靠手写
+    // sum() {
+    //   return this.$store.state.sum;
+    // },
+    // bigSum() {
+    //   return this.$store.getters.bigSum;
+    // },
+    // school() {
+    //   return this.$store.state.school;
+    // },
+    // object() {
+    //   return this.$store.state.object;
+    // },
+
+    // 借助mapState生成计算属性从state中获取数据 (对象方法)
+    // ...mapState({
+    //   sum: "sum",
+    //   school: "school",
+    //   object: "object",
+    // }),
+
+    // 借助mapState生成计算属性从state中获取数据 (数组方法)
+    ...mapState(["sum", "school", "object"]),
+
+    // 借助mapGetters生成计算属性从Getters中获取数据 (数组方法)
+    ...mapGetters(["bigSum"]),
+  },
+  mounted() {
+    const x = mapState({
+      sum: "sum",
+    });
+    console.log(x);
+  },
+};
+</script>
+
+<style lang="less" scoped>
+button {
+  margin-left: 5px;
+}
+</style>
